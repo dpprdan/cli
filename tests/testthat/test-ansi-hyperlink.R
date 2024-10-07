@@ -286,38 +286,43 @@ test_that("ansi_has_hyperlink_support", {
   )
 
   # if no ansi support, then no
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
+  local_mocked_bindings(num_ansi_colors = function() 256L)
   expect_false(ansi_has_hyperlink_support())
 
   # are we in rstudio with support?
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
-  mockery::stub(ansi_has_hyperlink_support, "rstudio_detect",
-                list(type = "rstudio_console", hyperlink = TRUE))
+  local_mocked_bindings(
+    num_ansi_colors = function() 257L,
+    rstudio_detect = function() list(type = "rstudio_console", hyperlink = TRUE)
+  )
   expect_true(ansi_has_hyperlink_support())
 })
 
 test_that("ansi_has_hyperlink_support 2", {
   local_clean_cli_context()
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
-
-  mockery::stub(ansi_has_hyperlink_support, "isatty", FALSE)
+  local_mocked_bindings(
+    num_ansi_colors = function() 256L,
+    isatty = function(...) FALSE
+  )
   expect_false(ansi_has_hyperlink_support())
 })
 
 test_that("ansi_has_hyperlink_support 3", {
   local_clean_cli_context()
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
-
-  mockery::stub(ansi_has_hyperlink_support, "isatty", TRUE)
-  mockery::stub(ansi_has_hyperlink_support, "is_windows", TRUE)
+  local_mocked_bindings(
+    num_ansi_colors = function() 256L,
+    isatty = function(...) TRUE,
+    is_windows = function() TRUE
+  )
   withr::local_envvar(WT_SESSION = "4c464723-f51f-4612-83f7-31e1c75abd83")
   expect_true(ansi_has_hyperlink_support())
 })
 
 test_that("ansi_has_hyperlink_support 4", {
   local_clean_cli_context()
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
-  mockery::stub(ansi_has_hyperlink_support, "isatty", TRUE)
+  local_mocked_bindings(
+    num_ansi_colors = function() 256L,
+    isatty = function(...) TRUE
+  )
 
   withr::local_envvar("CI" = "true")
   expect_false(ansi_has_hyperlink_support())
@@ -328,8 +333,10 @@ test_that("ansi_has_hyperlink_support 4", {
 
 test_that("ansi_has_hyperlink_support 5", {
   local_clean_cli_context()
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
-  mockery::stub(ansi_has_hyperlink_support, "isatty", TRUE)
+  local_mocked_bindings(
+    num_ansi_colors = function() 256L,
+    isatty = function(...) TRUE
+  )
 
   withr::local_envvar(
     TERM_PROGRAM = "iTerm.app",
@@ -340,8 +347,10 @@ test_that("ansi_has_hyperlink_support 5", {
 
 test_that("ansi_has_hyperlink_support 5", {
   local_clean_cli_context()
-  mockery::stub(ansi_has_hyperlink_support, "num_ansi_colors", 256L)
-  mockery::stub(ansi_has_hyperlink_support, "isatty", TRUE)
+  local_mocked_bindings(
+    num_ansi_colors = function() 256L,
+    isatty = function(...) TRUE
+  )
 
   withr::local_envvar(VTE_VERSION = "0.51.1")
   expect_true(ansi_has_hyperlink_support())
