@@ -316,7 +316,7 @@ builtin_handler_rstudio <- list(
     }
   },
 
-  complete = function(bar, .envir, results) {
+  complete = function(bar, .envir, result) {
     if (!is.null(bar$rstudio_id)) {
       rstudioapi::jobRemove(bar$rstudio_id)
     }
@@ -378,7 +378,7 @@ builtin_handler_shiny <- list(
     )
   },
 
-  complete = function(bar, .envir, results) {
+  complete = function(bar, .envir, result) {
     if (!is.null(bar$shiny_progress)) {
       bar$shiny_progress$set(
         value = bar$current,
