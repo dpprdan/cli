@@ -1,5 +1,9 @@
 # cli (development version)
 
+* `ansi_strwrap()` (used by `cli_alert_*(wrap = TRUE)` and friends) now
+  correctly wraps strings that contain multi-codepoint graphemes,
+  such as an emoji (#822).
+
 * Multiple concurrent progress bar and status bars are now rendered
   on separate lines on ANSI-capable terminals. Non-ANSI dynamic terminals
   continue to show only the current bar (@simonpcouch, #819).

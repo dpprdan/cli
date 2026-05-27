@@ -544,6 +544,20 @@ test_that("ansi_strwrap double width", {
   )
 })
 
+test_that("ansi_strwrap with multi-codepoint graphemes", {
+  # U+2139 + U+FE0F is one grapheme but two codepoints
+  msg <- paste0(
+    "\u2139\ufe0f one two three four five six seven eight nine ten ",
+    "eleven twelve"
+  )
+  styled <- paste0(col_cyan("x"), " ", msg)
+  wrapped <- ansi_strwrap(styled, 40)
+  expect_equal(
+    ansi_strip(wrapped),
+    strwrap(ansi_strip(styled), 40)
+  )
+})
+
 test_that("ansi_strwrap newlines", {
   expect_equal(
     ansi_strwrap("\033[32mv\033[39m hello world.\nxxx"),

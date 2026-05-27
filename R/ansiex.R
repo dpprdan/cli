@@ -691,13 +691,18 @@ ansi_strwrap <- function(
   }
   splits <- c(splits, xsidx)
 
+  # splits and drop are codepoint positions, but we need grapheme positions
+  g_len <- nchar(utf8_graphemes(xs)[[1]])
+  g_start <- c(1L, cumsum(g_len)[-length(g_len)] + 1L)
+  cp_to_g <- function(p) findInterval(p, g_start)
+
   wrp <- vcapply(seq_along(splits[-1]), function(i) {
     from <- splits[i]
     to <- splits[i + 1L] - 1L
     while (from %in% drop) {
       from <- from + 1L
     }
-    .Call(clic_ansi_substr, xx, from, to)
+    .Call(clic_ansi_substr, xx, cp_to_g(from), cp_to_g(to))
   })
 
   indent <- strrep(" ", indent)
