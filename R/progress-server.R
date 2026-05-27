@@ -41,7 +41,7 @@
 #'
 #' ### `rstudio`
 #'
-#' Use [RStudio's job panel](https://posit.co/blog/rstudio-1-2-jobs/)
+#' Use [RStudio's job panel](https://posit.co/blog/rstudio-1-2-jobs)
 #' to show the progress bars. This handler is available at the RStudio console,
 #' in recent versions of RStudio.
 #'
