@@ -646,12 +646,18 @@ test_that("cli.progress_multiline = FALSE forces single-line ANSI render", {
 
   fun <- function() {
     id1 <- cli_progress_bar(
-      "bar1", total = 3, type = "custom",
-      format = "bar1: {pb_current}", current = FALSE
+      "bar1",
+      total = 3,
+      type = "custom",
+      format = "bar1: {pb_current}",
+      current = FALSE
     )
     id2 <- cli_progress_bar(
-      "bar2", total = 3, type = "custom",
-      format = "bar2: {pb_current}", current = FALSE
+      "bar2",
+      total = 3,
+      type = "custom",
+      format = "bar2: {pb_current}",
+      current = FALSE
     )
     cli_progress_update(id = id1, force = TRUE)
     cli_progress_update(id = id2, force = TRUE)
