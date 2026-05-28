@@ -37,7 +37,10 @@ ansi_regex <- function() {
     "|\\x{001b}[A-M]",
     # this is for hyperlinks, we must be non-greedy
     "|\\x{001b}\\]8;.*?;.*?\\x{001b}\\\\",
-    "|\\x{001b}\\]8;.*?;.*?\\x{0007}"
+    "|\\x{001b}\\]8;.*?;.*?\\x{0007}",
+    # generic OSC (e.g. window title), BEL- or ST-terminated
+    "|\\x{001b}\\].*?\\x{001b}\\\\",
+    "|\\x{001b}\\].*?\\x{0007}"
   )
 }
 

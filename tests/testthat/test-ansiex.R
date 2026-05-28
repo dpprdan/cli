@@ -53,6 +53,27 @@ test_that("ansi_strip works", {
   }
 })
 
+test_that("ansi_strip removes generic OSC sequences", {
+  # BEL-terminated window title (OSC 0)
+  expect_equal(
+    ansi_strip("i\033]0;some title\asatty: TRUE \r\n"),
+    "isatty: TRUE \r\n"
+  )
+  # ST-terminated OSC
+  expect_equal(
+    ansi_strip("before\033]2;title\033\\after"),
+    "beforeafter"
+  )
+  # Multiple OSC sequences mixed with text and SGR
+  expect_equal(
+    ansi_strip("\033]0;t1\a\033[31mred\033[39m\033]0;t2\a"),
+    "red"
+  )
+  # csi = FALSE keeps the OSC sequence
+  s <- "x\033]0;t\ay"
+  expect_equal(ansi_strip(s, csi = FALSE), s)
+})
+
 str <- c(
   "",
   "plain",
