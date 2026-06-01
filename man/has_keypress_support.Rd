@@ -9,7 +9,7 @@ has_keypress_support()
 }
 \value{
 Whether there is support for waiting for individual
-keypressses.
+keypresses.
 }
 \description{
 Check if the current platform/terminal supports reading

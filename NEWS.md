@@ -1,5 +1,11 @@
 # cli (development version)
 
+* `keypress()` improvements:
+  - `timeout` argument to wait at most a given number of seconds for a
+    key press.
+  - Blocking reads are now interruptible.
+  - Unicode characters (including emoji) are now read correctly on Windows.
+
 * `ansi_strip()` now also removes generic OSC sequences such as the
   `\033]0;...\a` window-title sequence emitted by `Rscript.exe` on
   Windows.
