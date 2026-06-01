@@ -19,7 +19,7 @@ uncovr::document()    # regenerate roxygen2 docs (man/*.Rd and NAMESPACE)
 To run R CMD check (set `NOT_CRAN` so tests that are skipped on CRAN still run):
 
 ```r
-withr::with_envvar(c(NOT_CRAN = "true"), rcmdcheck::rcmdcheck())
+withr::with_envvar(c(NOT_CRAN = "true", DISPLAY = ""), rcmdcheck::rcmdcheck())
 ```
 
 Running a single test file or a single test:
