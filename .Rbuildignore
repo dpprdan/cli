@@ -38,4 +38,4 @@
 ^[\.]?air\.toml$
 ^\.vscode$
 ^[.]cache$
-^CLAUDE.md$"
+^CLAUDE.md$
