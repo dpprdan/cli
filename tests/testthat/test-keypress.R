@@ -110,7 +110,9 @@ keypress_wait_for <- function(p, marker, timeout = 10) {
   }
   out <- ""
   deadline <- Sys.time() + timeout
-  while (Sys.time() < deadline && !grepl(marker, strip_ansi(out), fixed = TRUE)) {
+  while (
+    Sys.time() < deadline && !grepl(marker, strip_ansi(out), fixed = TRUE)
+  ) {
     p$poll_io(200)
     out <- paste0(out, p$read_output())
   }
