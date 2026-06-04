@@ -26,6 +26,10 @@
 * If `cli.progress_show_after = 0` is set then the progress bar is now
   shown even if it terminates immediately.
 
+* New `cli_with_progress_ticks()` function to be used when testing
+  cli progress bars. It makes cli redraw the progress bar for every
+  progress update.
+
 # cli 3.6.6
 
 * New `{.num}` and `{.bytes}` inline styles to format numbers
