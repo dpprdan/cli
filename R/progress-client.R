@@ -458,7 +458,7 @@ cli_progress_update <- function(
   upd <- .Call(clic_update_due)
   if (
     force ||
-      (upd && now > pb$show_after) ||
+      (upd && now >= pb$show_after) ||
       (!is.na(pb$total) &&
         upd &&
         now > pb$show_50 &&

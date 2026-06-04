@@ -23,6 +23,9 @@
 * New `R_CLI_ANSI` environment variable that is equivalent to the
   `cli.ansi` option (the option takes precedence). See `is_ansi_tty()`.
 
+* If `cli.progress_show_after = 0` is set then the progress bar is now
+  shown even if it terminates immediately.
+
 # cli 3.6.6
 
 * New `{.num}` and `{.bytes}` inline styles to format numbers
