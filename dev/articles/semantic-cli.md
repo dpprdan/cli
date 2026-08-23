@@ -571,8 +571,8 @@ builtin_theme()$h1
     #> $fmt                                                                            
     #> function (x)                                                                    
     #> cli::rule(x, line_col = "cyan")                                                 
-    #> <bytecode: 0x55ffa57994d0>                                                      
-    #> <environment: 0x55ffa4047a60>                                                   
+    #> <bytecode: 0x555e3909ab70>                                                      
+    #> <environment: 0x555e38c22610>                                                   
     #>                                                                                 
 
 See also [`?cli::themes`](https://cli.r-lib.org/dev/reference/themes.md)
@@ -666,10 +666,22 @@ When a cli function is called:
     alert, heading, etc. on the screen, using the standard R
     [`message()`](https://rdrr.io/r/base/message.html) function.
 
+The message that is shown in the last step is a regular R message, with
+class `message`. In addition, it also has class `cliMessage`, which you
+can use to suppress or catch these messages specifically, e.g. with
+[`suppressMessages()`](https://rdrr.io/r/base/message.html) or
+[`testthat::expect_message()`](https://testthat.r-lib.org/reference/expect_error.html).
+Note that this is different from the `cli_message` class mentioned
+above, which belongs to the earlier, internal condition from step 1, and
+is not the class to use with
+[`suppressMessages()`](https://rdrr.io/r/base/message.html) or
+`expect_message()`.
+
 ``` r
 
 tryCatch(cli_h1("Heading"), cli_message = function(x) x)
 suppressMessages(cli_text("Not shown"))
+suppressMessages(cli_alert("Not shown either"), class = "cliMessage")
 ```
 
 
@@ -695,8 +707,8 @@ invisible(rs$close())
 ```
 
 
-    #> This is sub-process 16615 from callr                                            
-    #> [1] 16615                                                                       
+    #> This is sub-process 17008 from callr                                            
+    #> [1] 17008                                                                       
 
 ## Utility functions
 
