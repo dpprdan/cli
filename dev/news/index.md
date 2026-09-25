@@ -2,6 +2,11 @@
 
 ## cli (development version)
 
+- Hyperlinks containing `fs_path` objects (or any object with a
+  `class-map` entry that itself creates a hyperlink) now generate the
+  correct ANSI escape sequences
+  ([\#683](https://github.com/r-lib/cli/issues/683)).
+
 - [`keypress()`](https://cli.r-lib.org/dev/reference/keypress.md)
   improvements:
 
@@ -39,6 +44,11 @@
   [`cli_with_progress_ticks()`](https://cli.r-lib.org/dev/reference/cli_with_progress_ticks.md)
   function to be used when testing cli progress bars. It makes cli
   redraw the progress bar for every progress update.
+
+- Fix issues with
+  [`ansi_strwrap()`](https://cli.r-lib.org/dev/reference/ansi_strwrap.md)
+  having `\r` in the string
+  ([\#667](https://github.com/r-lib/cli/issues/667))
 
 ## cli 3.6.6
 
