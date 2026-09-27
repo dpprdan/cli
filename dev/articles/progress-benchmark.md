@@ -33,10 +33,10 @@ ben_st
 #> # A tibble: 4 × 6
 #>   expression                  min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>             <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 __cli_update_due         6.05ns   9.89ns 93291584.        0B        0
-#> 2 fun()                   84.05ns  91.04ns  6390020.        0B        0
-#> 3 .Call(ccli_tick_reset)  88.94ns  98.95ns  9590573.        0B        0
-#> 4 interactive()           10.01ns  14.09ns 66945475.        0B        0
+#> 1 __cli_update_due              0   10.1ns 92721259.        0B        0
+#> 2 fun()                    80.1ns    110ns  5905303.        0B        0
+#> 3 .Call(ccli_tick_reset)     80ns   90.1ns 10184143.        0B        0
+#> 4 interactive()              10ns   10.1ns 63873663.        0B        0
 ```
 
 ``` r
@@ -48,7 +48,7 @@ ben_st2
 #> # A tibble: 1 × 6
 #>   expression                    min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                  <bch> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 if (`__cli_update_due`) fo…  29ns   35ns 25371926.        0B        0
+#> 1 if (`__cli_update_due`) fo…  30ns   40ns 25032820.        0B        0
 ```
 
 ### `cli_progress_along()`
@@ -61,8 +61,8 @@ bench::mark(seq[[1]], ta[[1]])
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 seq[[1]]       85ns     93ns  9693552.        0B        0
-#> 2 ta[[1]]        93ns    100ns  8714072.        0B        0
+#> 1 seq[[1]]     89.9ns    110ns  7547461.        0B        0
+#> 2 ta[[1]]      90.1ns    111ns  7259667.        0B        0
 ```
 
 #### `for` loop
@@ -104,10 +104,10 @@ ben_taf
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0()         17.4ms   17.4ms      57.4    21.6KB     421.
-#> 2 fp()           19ms   19.2ms      52.1    82.5KB     574.
+#> 1 f0()         18.9ms   19.1ms      52.2    21.6KB     331.
+#> 2 fp()         21.5ms   21.9ms      45.6    82.5KB     433.
 (ben_taf$median[2] - ben_taf$median[1]) / 1e5
-#> [1] 17.6ns
+#> [1] 28.6ns
 ```
 
 ``` r
@@ -119,10 +119,10 @@ ben_taf2
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0(1e+06)     187ms    188ms      5.32        0B     46.1
-#> 2 fp(1e+06)     193ms    195ms      4.47     1.9KB     22.4
+#> 1 f0(1e+06)     220ms    221ms      4.52        0B     40.7
+#> 2 fp(1e+06)     217ms    265ms      3.77     1.9KB     24.5
 (ben_taf2$median[2] - ben_taf2$median[1]) / 1e6
-#> [1] 6.88ns
+#> [1] 44.3ns
 ```
 
 ``` r
@@ -134,10 +134,10 @@ ben_taf3
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0(1e+07)     1.91s    1.91s     0.524        0B     24.6
-#> 2 fp(1e+07)     1.96s    1.96s     0.509     1.9KB     24.4
+#> 1 f0(1e+07)     2.13s    2.13s     0.469        0B     22.1
+#> 2 fp(1e+07)     2.18s    2.18s     0.458     1.9KB     21.5
 (ben_taf3$median[2] - ben_taf3$median[1]) / 1e7
-#> [1] 5.6ns
+#> [1] 4.99ns
 ```
 
 ``` r
@@ -149,10 +149,10 @@ ben_taf4
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0(1e+08)     18.9s    18.9s    0.0530        0B     27.8
-#> 2 fp(1e+08)     19.9s    19.9s    0.0502     1.9KB     26.1
+#> 1 f0(1e+08)     20.8s    20.8s    0.0481        0B     25.2
+#> 2 fp(1e+08)     22.2s    22.2s    0.0451     1.9KB     23.4
 (ben_taf4$median[2] - ben_taf4$median[1]) / 1e8
-#> [1] 10.6ns
+#> [1] 13.7ns
 ```
 
 #### Mapping with `lapply()`
@@ -207,11 +207,11 @@ ben_tam
 #> # A tibble: 3 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0()         73.5ms   79.8ms      9.05     781KB     18.1
-#> 2 f01()        80.4ms   82.7ms     11.6      781KB     15.4
-#> 3 fp()         90.7ms   97.1ms      9.33     783KB     13.1
+#> 1 f0()         79.8ms    102ms      7.42     781KB    16.3 
+#> 2 f01()        87.7ms   92.7ms      9.40     781KB     9.40
+#> 3 fp()         93.9ms  109.8ms      8.91     783KB    12.5
 (ben_tam$median[3] - ben_tam$median[1]) / 1e5
-#> [1] 173ns
+#> [1] 78ns
 ```
 
 ``` r
@@ -223,11 +223,11 @@ ben_tam2
 #> # A tibble: 3 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0(1e+06)  942.19ms 942.19ms     1.06     7.63MB     8.49
-#> 2 f01(1e+06)    1.57s    1.57s     0.637    7.63MB     2.55
-#> 3 fp(1e+06)     1.21s    1.21s     0.825    7.63MB     4.95
+#> 1 f0(1e+06)     1.01s    1.01s     0.990    7.63MB     6.93
+#> 2 f01(1e+06)    3.05s    3.05s     0.328    7.63MB     2.62
+#> 3 fp(1e+06)  913.03ms 913.03ms     1.10     7.63MB     2.19
 (ben_tam2$median[3] - ben_tam2$median[1]) / 1e6
-#> [1] 270ns
+#> [1] 1ns
 (ben_tam2$median[3] - ben_tam2$median[2]) / 1e6
 #> [1] 1ns
 ```
@@ -282,13 +282,13 @@ ben_pur
 #> # A tibble: 3 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0()         56.7ms   56.9ms      17.4    1.44MB    11.6 
-#> 2 f01()          65ms   65.8ms      14.8   781.3KB     8.85
-#> 3 fp()         67.5ms   67.7ms      14.6  783.26KB    11.0
+#> 1 f0()         57.8ms   57.9ms      17.2    1.44MB     4.91
+#> 2 f01()        70.5ms   71.5ms      13.2   781.3KB     5.28
+#> 3 fp()           72ms   75.6ms      13.0  783.26KB     5.19
 (ben_pur$median[3] - ben_pur$median[1]) / 1e5
-#> [1] 108ns
+#> [1] 176ns
 (ben_pur$median[3] - ben_pur$median[2]) / 1e5
-#> [1] 19.1ns
+#> [1] 40.1ns
 ```
 
 ``` r
@@ -300,13 +300,13 @@ ben_pur2
 #> # A tibble: 3 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0(1e+06)  733.83ms 733.83ms     1.36     7.63MB     4.09
-#> 2 f01(1e+06) 903.24ms 903.24ms     1.11     7.63MB     3.32
-#> 3 fp(1e+06)     1.26s    1.26s     0.796    7.63MB     3.18
+#> 1 f0(1e+06)  717.85ms 717.85ms     1.39     7.63MB     2.79
+#> 2 f01(1e+06)  889.8ms  889.8ms     1.12     7.63MB     2.25
+#> 3 fp(1e+06)     1.35s    1.35s     0.743    7.63MB     2.23
 (ben_pur2$median[3] - ben_pur2$median[1]) / 1e6
-#> [1] 523ns
+#> [1] 628ns
 (ben_pur2$median[3] - ben_pur2$median[2]) / 1e6
-#> [1] 353ns
+#> [1] 456ns
 ```
 
 ### `ticking()`
@@ -346,10 +346,10 @@ ben_tk
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0()        17.65ms  24.35ms    40.8      39.3KB     3.89
-#> 2 fp()          3.57s    3.57s     0.280   100.8KB     3.64
+#> 1 f0()        19.93ms  24.34ms    38.9      39.3KB     1.94
+#> 2 fp()          3.38s    3.38s     0.296   100.8KB     2.66
 (ben_tk$median[2] - ben_tk$median[1]) / 1e5
-#> [1] 35.5µs
+#> [1] 33.6µs
 ```
 
 ### Traditional API
@@ -400,13 +400,13 @@ ben_api
 #> # A tibble: 3 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0()        18.77ms  32.33ms    29.5      18.7KB     3.93
-#> 2 ff()        25.88ms  39.04ms    24.7      27.6KB     3.80
-#> 3 fp()          3.28s    3.28s     0.305    25.1KB     1.83
+#> 1 f0()        18.16ms  37.59ms    27.9      18.7KB     3.98
+#> 2 ff()        25.28ms  45.41ms    23.8      27.6KB     1.98
+#> 3 fp()          1.91s    1.91s     0.523    25.1KB     2.61
 (ben_api$median[3] - ben_api$median[1]) / 1e5
-#> [1] 32.4µs
+#> [1] 18.8µs
 (ben_api$median[2] - ben_api$median[1]) / 1e5
-#> [1] 67ns
+#> [1] 78.2ns
 ```
 
 ``` r
@@ -418,13 +418,13 @@ ben_api2
 #> # A tibble: 3 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 f0(1e+06)     179ms    197ms    4.92          0B     4.92
-#> 2 ff(1e+06)     254ms    254ms    3.94      1.91KB     3.94
-#> 3 fp(1e+06)       17s      17s    0.0590    1.91KB     3.24
+#> 1 f0(1e+06)     181ms    181ms    5.39          0B     5.39
+#> 2 ff(1e+06)     246ms    248ms    4.04      1.91KB     2.69
+#> 3 fp(1e+06)       17s      17s    0.0589    1.91KB     2.47
 (ben_api2$median[3] - ben_api2$median[1]) / 1e6
 #> [1] 16.8µs
 (ben_api2$median[2] - ben_api2$median[1]) / 1e6
-#> [1] 57.2ns
+#> [1] 66.1ns
 ```
 
 ## C benchmarks
@@ -506,10 +506,10 @@ ben_c
 #> # A tibble: 4 × 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 test_baseline()   785.38ms 785.38ms     1.27     2.08KB        0
-#> 2 test_modulo()        1.12s    1.12s     0.896    2.24KB        0
-#> 3 test_cli()        817.23ms 817.23ms     1.22    24.11KB        0
-#> 4 test_cli_unroll() 787.74ms 787.74ms     1.27     3.58KB        0
+#> 1 test_baseline()   546.29ms 546.29ms     1.83     2.08KB        0
+#> 2 test_modulo()        1.09s    1.09s     0.915    2.24KB        0
+#> 3 test_cli()        789.28ms 789.28ms     1.27    24.11KB        0
+#> 4 test_cli_unroll() 546.66ms 546.66ms     1.83     3.58KB        0
 (ben_c$median[3] - ben_c$median[1]) / 2000000000
 #> [1] 1ns
 ```
@@ -527,50 +527,38 @@ Let’s measure how long a single update takes.
 
 cli_progress_bar(total = 100000)
 bench::mark(cli_progress_update(force = TRUE), max_iterations = 10000)
-#> ■                                  0% | ETA:  4m
-#> ■                                  0% | ETA:  2h
+#> ■                                  0% | ETA:  3m
 #> ■                                  0% | ETA:  1h
 #> ■                                  0% | ETA:  1h
 #> ■                                  0% | ETA: 49m
-#> ■                                  0% | ETA: 42m
-#> ■                                  0% | ETA: 38m
-#> ■                                  0% | ETA: 34m
-#> ■                                  0% | ETA: 31m
+#> ■                                  0% | ETA: 41m
+#> ■                                  0% | ETA: 35m
+#> ■                                  0% | ETA: 32m
 #> ■                                  0% | ETA: 29m
-#> ■                                  0% | ETA: 27m
 #> ■                                  0% | ETA: 26m
-#> ■                                  0% | ETA: 25m
+#> ■                                  0% | ETA: 24m
 #> ■                                  0% | ETA: 23m
-#> ■                                  0% | ETA: 22m
 #> ■                                  0% | ETA: 22m
 #> ■                                  0% | ETA: 21m
 #> ■                                  0% | ETA: 20m
-#> ■                                  0% | ETA: 20m
-#> ■                                  0% | ETA: 19m
 #> ■                                  0% | ETA: 19m
 #> ■                                  0% | ETA: 18m
 #> ■                                  0% | ETA: 18m
 #> ■                                  0% | ETA: 17m
 #> ■                                  0% | ETA: 17m
 #> ■                                  0% | ETA: 17m
-#> ■                                  0% | ETA: 17m
 #> ■                                  0% | ETA: 16m
 #> ■                                  0% | ETA: 16m
 #> ■                                  0% | ETA: 16m
-#> ■                                  0% | ETA: 16m
 #> ■                                  0% | ETA: 15m
 #> ■                                  0% | ETA: 15m
 #> ■                                  0% | ETA: 15m
 #> ■                                  0% | ETA: 15m
-#> ■                                  0% | ETA: 15m
 #> ■                                  0% | ETA: 14m
 #> ■                                  0% | ETA: 14m
 #> ■                                  0% | ETA: 14m
 #> ■                                  0% | ETA: 14m
 #> ■                                  0% | ETA: 14m
-#> ■                                  0% | ETA: 14m
-#> ■                                  0% | ETA: 14m
-#> ■                                  0% | ETA: 14m
 #> ■                                  0% | ETA: 13m
 #> ■                                  0% | ETA: 13m
 #> ■                                  0% | ETA: 13m
@@ -578,29 +566,6 @@ bench::mark(cli_progress_update(force = TRUE), max_iterations = 10000)
 #> ■                                  0% | ETA: 13m
 #> ■                                  0% | ETA: 13m
 #> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 13m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
-#> ■                                  0% | ETA: 12m
 #> ■                                  0% | ETA: 12m
 #> ■                                  0% | ETA: 12m
 #> ■                                  0% | ETA: 12m
@@ -617,10 +582,56 @@ bench::mark(cli_progress_update(force = TRUE), max_iterations = 10000)
 #> ■                                  0% | ETA: 11m
 #> ■                                  0% | ETA: 11m
 #> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 11m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
+#> ■                                  0% | ETA: 10m
 #> # A tibble: 1 × 6
 #>   expression                    min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                 <bch:> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 cli_progress_update(force… 5.29ms 5.39ms      179.    1.42MB     2.04
+#> 1 cli_progress_update(force… 4.74ms 4.86ms      202.    1.42MB     2.04
 cli_progress_done()
 ```
 
@@ -630,90 +641,97 @@ cli_progress_done()
 
 cli_progress_bar(total = NA)
 bench::mark(cli_progress_update(force = TRUE), max_iterations = 10000)
-#> ⠙ 1 done (524/s) | 3ms
-#> ⠹ 2 done (82/s) | 25ms
-#> ⠸ 3 done (97/s) | 32ms
-#> ⠼ 4 done (107/s) | 38ms
-#> ⠴ 5 done (115/s) | 44ms
-#> ⠦ 6 done (121/s) | 50ms
-#> ⠧ 7 done (125/s) | 57ms
-#> ⠇ 8 done (129/s) | 63ms
-#> ⠏ 9 done (132/s) | 69ms
-#> ⠋ 10 done (134/s) | 75ms
+#> ⠙ 1 done (562/s) | 2ms
+#> ⠹ 2 done (83/s) | 25ms
+#> ⠸ 3 done (99/s) | 31ms
+#> ⠼ 4 done (111/s) | 36ms
+#> ⠴ 5 done (120/s) | 42ms
+#> ⠦ 6 done (127/s) | 48ms
+#> ⠧ 7 done (133/s) | 53ms
+#> ⠇ 8 done (137/s) | 59ms
+#> ⠏ 9 done (141/s) | 65ms
+#> ⠋ 10 done (144/s) | 70ms
 #> ⠙ 11 done (137/s) | 81ms
-#> ⠹ 12 done (138/s) | 87ms
-#> ⠸ 13 done (140/s) | 93ms
-#> ⠼ 14 done (142/s) | 100ms
-#> ⠴ 15 done (143/s) | 106ms
-#> ⠦ 16 done (144/s) | 112ms
-#> ⠧ 17 done (145/s) | 118ms
-#> ⠇ 18 done (146/s) | 124ms
-#> ⠏ 19 done (147/s) | 130ms
-#> ⠋ 20 done (147/s) | 136ms
-#> ⠙ 21 done (148/s) | 142ms
-#> ⠹ 22 done (149/s) | 149ms
-#> ⠸ 23 done (149/s) | 155ms
-#> ⠼ 24 done (150/s) | 161ms
-#> ⠴ 25 done (150/s) | 167ms
-#> ⠦ 26 done (151/s) | 173ms
-#> ⠧ 27 done (151/s) | 179ms
-#> ⠇ 28 done (152/s) | 185ms
-#> ⠏ 29 done (152/s) | 192ms
-#> ⠋ 30 done (152/s) | 198ms
-#> ⠙ 31 done (153/s) | 204ms
-#> ⠹ 32 done (153/s) | 210ms
-#> ⠸ 33 done (153/s) | 216ms
-#> ⠼ 34 done (153/s) | 222ms
-#> ⠴ 35 done (153/s) | 229ms
-#> ⠦ 36 done (154/s) | 235ms
-#> ⠧ 37 done (154/s) | 241ms
-#> ⠇ 38 done (154/s) | 247ms
-#> ⠏ 39 done (154/s) | 253ms
-#> ⠋ 40 done (155/s) | 259ms
-#> ⠙ 41 done (155/s) | 265ms
-#> ⠹ 42 done (155/s) | 272ms
-#> ⠸ 43 done (155/s) | 278ms
-#> ⠼ 44 done (153/s) | 289ms
-#> ⠴ 45 done (153/s) | 296ms
-#> ⠦ 46 done (152/s) | 303ms
-#> ⠧ 47 done (152/s) | 310ms
-#> ⠇ 48 done (152/s) | 317ms
-#> ⠏ 49 done (152/s) | 324ms
-#> ⠋ 50 done (151/s) | 331ms
-#> ⠙ 51 done (151/s) | 337ms
-#> ⠹ 52 done (152/s) | 343ms
-#> ⠸ 53 done (152/s) | 350ms
-#> ⠼ 54 done (152/s) | 356ms
-#> ⠴ 55 done (152/s) | 362ms
-#> ⠦ 56 done (152/s) | 368ms
-#> ⠧ 57 done (152/s) | 375ms
-#> ⠇ 58 done (153/s) | 381ms
-#> ⠏ 59 done (153/s) | 387ms
-#> ⠋ 60 done (153/s) | 393ms
-#> ⠙ 61 done (153/s) | 400ms
-#> ⠹ 62 done (153/s) | 406ms
-#> ⠸ 63 done (153/s) | 412ms
-#> ⠼ 64 done (153/s) | 418ms
-#> ⠴ 65 done (153/s) | 424ms
-#> ⠦ 66 done (154/s) | 430ms
-#> ⠧ 67 done (154/s) | 436ms
-#> ⠇ 68 done (154/s) | 443ms
-#> ⠏ 69 done (154/s) | 449ms
-#> ⠋ 70 done (154/s) | 455ms
-#> ⠙ 71 done (154/s) | 461ms
-#> ⠹ 72 done (154/s) | 467ms
-#> ⠸ 73 done (154/s) | 473ms
-#> ⠼ 74 done (155/s) | 479ms
-#> ⠴ 75 done (155/s) | 486ms
-#> ⠦ 76 done (155/s) | 492ms
-#> ⠧ 77 done (155/s) | 498ms
-#> ⠇ 78 done (155/s) | 504ms
-#> ⠏ 79 done (155/s) | 511ms
-#> ⠋ 80 done (155/s) | 517ms
-#> ⠙ 81 done (155/s) | 523ms
+#> ⠹ 12 done (140/s) | 87ms
+#> ⠸ 13 done (142/s) | 92ms
+#> ⠼ 14 done (144/s) | 98ms
+#> ⠴ 15 done (146/s) | 103ms
+#> ⠦ 16 done (148/s) | 109ms
+#> ⠧ 17 done (149/s) | 115ms
+#> ⠇ 18 done (150/s) | 120ms
+#> ⠏ 19 done (151/s) | 126ms
+#> ⠋ 20 done (153/s) | 132ms
+#> ⠙ 21 done (154/s) | 137ms
+#> ⠹ 22 done (154/s) | 143ms
+#> ⠸ 23 done (155/s) | 149ms
+#> ⠼ 24 done (156/s) | 154ms
+#> ⠴ 25 done (157/s) | 160ms
+#> ⠦ 26 done (157/s) | 166ms
+#> ⠧ 27 done (158/s) | 172ms
+#> ⠇ 28 done (158/s) | 177ms
+#> ⠏ 29 done (159/s) | 183ms
+#> ⠋ 30 done (159/s) | 189ms
+#> ⠙ 31 done (160/s) | 195ms
+#> ⠹ 32 done (160/s) | 200ms
+#> ⠸ 33 done (161/s) | 206ms
+#> ⠼ 34 done (161/s) | 212ms
+#> ⠴ 35 done (161/s) | 218ms
+#> ⠦ 36 done (162/s) | 223ms
+#> ⠧ 37 done (162/s) | 229ms
+#> ⠇ 38 done (162/s) | 235ms
+#> ⠏ 39 done (162/s) | 241ms
+#> ⠋ 40 done (162/s) | 247ms
+#> ⠙ 41 done (162/s) | 253ms
+#> ⠹ 42 done (163/s) | 259ms
+#> ⠸ 43 done (163/s) | 265ms
+#> ⠼ 44 done (163/s) | 270ms
+#> ⠴ 45 done (163/s) | 276ms
+#> ⠦ 46 done (163/s) | 282ms
+#> ⠧ 47 done (164/s) | 288ms
+#> ⠇ 48 done (164/s) | 293ms
+#> ⠏ 49 done (164/s) | 299ms
+#> ⠋ 50 done (164/s) | 305ms
+#> ⠙ 51 done (164/s) | 311ms
+#> ⠹ 52 done (165/s) | 316ms
+#> ⠸ 53 done (165/s) | 322ms
+#> ⠼ 54 done (165/s) | 328ms
+#> ⠴ 55 done (165/s) | 334ms
+#> ⠦ 56 done (165/s) | 339ms
+#> ⠧ 57 done (165/s) | 345ms
+#> ⠇ 58 done (166/s) | 351ms
+#> ⠏ 59 done (166/s) | 356ms
+#> ⠋ 60 done (166/s) | 362ms
+#> ⠙ 61 done (166/s) | 368ms
+#> ⠹ 62 done (166/s) | 374ms
+#> ⠸ 63 done (166/s) | 379ms
+#> ⠼ 64 done (166/s) | 385ms
+#> ⠴ 65 done (167/s) | 391ms
+#> ⠦ 66 done (167/s) | 396ms
+#> ⠧ 67 done (167/s) | 402ms
+#> ⠇ 68 done (167/s) | 408ms
+#> ⠏ 69 done (167/s) | 414ms
+#> ⠋ 70 done (167/s) | 419ms
+#> ⠙ 71 done (167/s) | 425ms
+#> ⠹ 72 done (167/s) | 431ms
+#> ⠸ 73 done (167/s) | 437ms
+#> ⠼ 74 done (168/s) | 442ms
+#> ⠴ 75 done (168/s) | 448ms
+#> ⠦ 76 done (168/s) | 454ms
+#> ⠧ 77 done (168/s) | 459ms
+#> ⠇ 78 done (168/s) | 465ms
+#> ⠏ 79 done (168/s) | 471ms
+#> ⠋ 80 done (168/s) | 477ms
+#> ⠙ 81 done (168/s) | 482ms
+#> ⠹ 82 done (168/s) | 488ms
+#> ⠸ 83 done (168/s) | 494ms
+#> ⠼ 84 done (168/s) | 500ms
+#> ⠴ 85 done (168/s) | 506ms
+#> ⠦ 86 done (168/s) | 511ms
+#> ⠧ 87 done (168/s) | 517ms
+#> ⠇ 88 done (169/s) | 523ms
 #> # A tibble: 1 × 6
 #>   expression                    min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                 <bch:> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 cli_progress_update(force… 6.03ms 6.15ms      160.     265KB     2.03
+#> 1 cli_progress_update(force… 5.52ms 5.72ms      175.     266KB     2.03
 cli_progress_done()
 ```
